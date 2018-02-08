@@ -11,7 +11,7 @@ ICMP='-m icmp -p icmp'
 KRONOS='XxKr0n05xXx420blazeit'
 GLOBAL='eth0'
 INTERNAL='eth1'
-SRC_IP=''
+SRC_IP=`./get_ip.sh $GLOBAL`
 DEST_IP='192.168.1.5'
 
 echo "Clearing existing tables"
