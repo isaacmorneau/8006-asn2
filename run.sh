@@ -28,7 +28,8 @@ iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
 echo "Setting accounting rules"
-$IPA FORWARD -p all -j $KRONOS
+$IPA FORWARD -i $INTERNAL -o $GLOBAL -p all -j $KRONOS
+$IPA FORWARD -i $GLOBAL -o $INTERNAL -p all -j $KRONOS
 
 echo "Setting NAT forwarding rules"
 iptables -t nat -A POSTROUTING -i $INTERNAL -o $GLOBAL -m state --state NEW,ESTABLISHED -j SNAT --to-source $SRC_IP
