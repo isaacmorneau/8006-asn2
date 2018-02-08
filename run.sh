@@ -9,9 +9,10 @@ TCP='-m tcp -p tcp'
 UDP='-m udp -p udp'
 ICMP='-m icmp -p icmp'
 KRONOS='XxKr0n05xXx420blazeit'
+GLOBAL='eth0'
+INTERNAL='eth1'
 
 echo "Clearing existing tables"
-#drop tcp existing rules and user chains
 iptables -F
 iptables -X
 
@@ -20,14 +21,16 @@ echo "Creating user tables"
 iptables -N $KRONOS
 
 echo "Setting default policy to DROP"
-#set drop as default
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
-#initialize acounting rules
 echo "Setting accounting rules"
 $IPA FORWARD -p all -j $KRONOS
+
+iptables -t nat -A POSTROUTING -o $GLOBAL -j SNAT
+$IPA KRONOS -i $GLOBAL -o $INTERNAL -m state --state NEW,ESTABLISHED -j ACCEPT
+$IPA KRONOS -i $INTERNAL -o $GLOBAL -j ACCEPT
 
 #load the configs into arrays
 declare -a ACC_TCP_ARR
