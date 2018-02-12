@@ -1,6 +1,6 @@
 #Outgoing fragments
 echo "Fragment test"
-if [ "`hping3 -f -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -S -f -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
@@ -8,7 +8,7 @@ fi
 
 #DNS packets
 echo "DNS test"
-if [ "`hping3 -p 53 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -S -p 53 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
@@ -24,7 +24,7 @@ fi
 
 #Telnet packets
 echo "Telnet test"
-if [ "`hping3 -p 23 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -S -p 23 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
@@ -48,14 +48,14 @@ fi
 
 #TCP ports 111, and 515
 echo "Port 111 test"
-if [ "`hping3 -p 111 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -S -p 111 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
 fi
 
 echo "Port 515 test"
-if [ "`hping3 -p 515 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -S -p 515 -c 3 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
