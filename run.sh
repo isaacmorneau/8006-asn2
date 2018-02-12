@@ -9,8 +9,8 @@ TCP='-m tcp -p tcp'
 UDP='-m udp -p udp'
 ICMP='-m icmp -p icmp'
 KRONOS='XxKr0n05xXx420blazeit'
-GLOBAL='eth0'
-INTERNAL='eth1'
+GLOBAL='eno1'
+INTERNAL='enp3s2'
 SRC_IP=`./get_ip.sh $GLOBAL`
 DEST_IP='192.168.1.5'
 
