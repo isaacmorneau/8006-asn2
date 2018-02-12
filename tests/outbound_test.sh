@@ -16,7 +16,7 @@ fi
 
 #SYN/FIN packets
 echo "SYN/FIN test"
-if [ "`hping3 SF -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -SF -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
