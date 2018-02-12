@@ -5,6 +5,12 @@ if [[ $EUID -ne 0 ]]; then
     exit 0
 fi
 
+GLOBAL='eno1'
+INT='enp3s2'
+IP='192.168.1.5'
+MASK='255.255.255.0'
+GATE='192.168.1.1'
+
 #Drop tcp existing rules
 iptables -F
 
@@ -18,3 +24,11 @@ iptables -P FORWARD ACCEPT
 
 #Zero out any counters
 iptables -Z
+
+#Reset resolver config
+cat resolvBACKUP > /etc/resolv.conf
+
+#Reset network cards
+ifconfig $GLOBAL up
+ifconfig $INT down
+route del default gw $GATE
