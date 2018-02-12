@@ -34,7 +34,7 @@ else
 fi
 
 echo "Allowed UDP test"
-if [ "`hping3 -p 22 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "3" ]; then
+if [ "`hping3 -p 22 -2 -c 3 $IP 2>/dev/null | grep -o -i ICMP | wc -l`" == "3" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
