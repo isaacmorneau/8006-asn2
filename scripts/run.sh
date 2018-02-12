@@ -50,7 +50,7 @@ echo "Drop SYN-FIN packets"
 $IPA $KRONOS $TCP --tcp-flags SYN,FIN SYN,FIN -j DROP
 
 echo "Drop incoming packets coming from outside with source of the inside"
-$IPA $KRONOS -s 192.168.1.0/24 -j DROP
+$IPA $KRONOS -i $GLOBAL -s 192.168.1.0/24 -j DROP
 
 echo "Allowing fragments"
 $IPA $KRONOS -f -j ACCEPT
