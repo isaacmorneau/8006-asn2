@@ -19,8 +19,21 @@ else
     echo "Test FAILED"
 fi
 
-echo "Blocked SynFin test"
+echo "Blocked UDP test"
+if [ "`hping3 -p 50000 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "ICMP" ]; then
+    echo "Test FAILED"
+else
+    echo "Test passed"
+fi
 
+echo "Blocked UDP test"
+if [ "`hping3 -p 22 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "ICMP" ]; then
+    echo "Test passed"
+else
+    echo "Test FAILED"
+fi
+
+echo "Blocked SynFin test"
 if [ "`hping3 -p 22 -SF -c 3 $IP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
