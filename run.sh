@@ -64,17 +64,17 @@ readarray -t ACC_ICMP_ARR < icmp_acpt.txt
 #add accept rules for TCP, UDP, and ICMP to the chains
 for p in ${ACC_TCP_ARR[@]}; do
     echo "Setting ACCEPT for TCP port $p"
-    $IPA $KRONOS     $TCP --sport $p -j ACCEPT
-    $IPA $KRONOS     $TCP --dport $p -j ACCEPT
+    $IPA $KRONOS     $TCP --sport $p -m state --state NEW,ESTABLISHED -j ACCEPT
+    $IPA $KRONOS     $TCP --dport $p -m state --state NEW,ESTABLISHED -j ACCEPT
 done
 
 for p in ${ACC_UDP_ARR[@]}; do
     echo "Setting ACCEPT for UDP port $p"
-    $IPA $KRONOS     $UDP --sport $p -j ACCEPT
-    $IPA $KRONOS     $UDP --dport $p -j ACCEPT
+    $IPA $KRONOS     $UDP --sport $p -m state --state NEW,ESTABLISHED -j ACCEPT
+    $IPA $KRONOS     $UDP --dport $p -m state --state NEW,ESTABLISHED -j ACCEPT
 done
 
 for p in ${ACC_ICMP_ARR[@]}; do
     echo "Setting ACCEPT for ICMP type $p"
-    $IPA $KRONOS     $ICMP --icmp-type $p -j ACCEPT
+    $IPA $KRONOS     $ICMP --icmp-type $p -m state --state NEW,ESTABLISHED -j ACCEPT
 done
