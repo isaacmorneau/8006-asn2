@@ -6,7 +6,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 $INT = 'enp3s2'
-$IP = '192.160.1.5'
+$IP = '192.168.1.5'
 $MASK = '255.255.255.0'
 
 echo "Enabling interface $INT"
