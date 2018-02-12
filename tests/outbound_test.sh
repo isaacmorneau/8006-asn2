@@ -44,13 +44,13 @@ else
     echo "Test FAILED"
 fi
 echo "Port 32770 test"
-if [ "`hping3 32770 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -p 32770 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
 fi
 echo "Port 32775 test"
-if [ "`hping3 32775 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -p 32775 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
