@@ -19,10 +19,10 @@ nameserver 8.8.4.4
 echo "Disabling interface $GLOBAL"
 ifconfig $GLOBAL down
 echo "Enabling interface $INT"
-ifconfig p3p1 $IP up
+ifconfig $INT $IP up
 echo "Setting Gateway $GATE"
 route add default gw $GATE
 
 cp /etc/resolv.conf resolvBACKUP
-echo $NAMESERVER > /etc/resolv.conf
+echo "$NAMESERVER" > /etc/resolv.conf
 
