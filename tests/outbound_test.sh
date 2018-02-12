@@ -56,7 +56,7 @@ else
     echo "Test FAILED"
 fi
 echo "Port 32776 test"
-if [ "`hping3 32776 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -p 32776 -c 10 8.8.8.8 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
