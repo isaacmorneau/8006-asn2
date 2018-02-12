@@ -5,11 +5,11 @@ if [[ $EUID -ne 0 ]]; then
     exit 0
 fi
 
-$INT = 'enp3s2'
-$IP = '192.168.1.5'
-$MASK = '255.255.255.0'
+INT='enp3s2'
+IP='192.168.1.5'
+MASK='255.255.255.0'
 
 echo "Enabling interface $INT"
-ifconfig $INT UP
+ifconfig $INT up
 echo "Setting IP $IP/$MASK"
 ifconfig $INT $IP netmask $MASK
