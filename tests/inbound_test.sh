@@ -4,5 +4,5 @@ if [[ $EUID -ne 0 ]]; then
     sudo ${0}
     exit 0
 fi
-read IP -p "Enter IP to test:"
+read -p "Enter IP to test: " IP
 nmap -Pr -oG -p 32768-32775,137-139,111,515 $IP
