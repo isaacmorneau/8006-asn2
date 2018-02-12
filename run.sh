@@ -51,6 +51,9 @@ $IPA $KRONOS $TCP --tcp-flags SYN,FIN SYN,FIN -j DROP
 #Drop incoming packets coming from outside with source of the inside
 $IPA $KRONOS -s 192.168.1.0/24 -j DROP
 
+#Allow fragments
+$IPA $KRONOS -f -j ACCEPT
+
 #load the configs into arrays
 declare -a ACC_TCP_ARR
 declare -a ACC_UDP_ARR
