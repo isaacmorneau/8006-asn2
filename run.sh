@@ -32,8 +32,8 @@ $IPA FORWARD -i $INTERNAL -o $GLOBAL -p all -j $KRONOS
 $IPA FORWARD -i $GLOBAL -o $INTERNAL -p all -j $KRONOS
 
 echo "Setting NAT forwarding rules"
-iptables -t nat -A POSTROUTING -i $INTERNAL -o $GLOBAL -m state --state NEW,ESTABLISHED -j SNAT --to-source $SRC_IP
-iptables -t nat -A PREROUTING -i $GLOBAL -o $INTERNAL -m state --state NEW,ESTABLISHED -j DNAT --to-destination $DEST_IP
+iptables -t nat -A POSTROUTING -o $GLOBAL -m state --state NEW,ESTABLISHED -j SNAT --to-source $SRC_IP
+iptables -t nat -A PREROUTING -i $GLOBAL -m state --state NEW,ESTABLISHED -j DNAT --to-destination $DEST_IP
 
 #load the configs into arrays
 declare -a ACC_TCP_ARR
