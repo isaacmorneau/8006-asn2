@@ -23,6 +23,6 @@ ifconfig $INT $IP up
 echo "Setting Gateway $GATE"
 route add default gw $GATE
 
-cp /etc/resolv.conf resolvBACKUP
+cp /etc/resolv.conf  resolv.conf.bak
 echo "$NAMESERVER" > /etc/resolv.conf
 

@@ -22,6 +22,6 @@ echo "1" >/proc/sys/net/ipv4/ip_forward
 route add -net 192.168.0.0 netmask $MASK gw 192.168.0.100
 route add -net $IP_BASE/24 gw $IP
 
-cp /etc/resolv.conf resolvBACKUP
+cp /etc/resolv.conf resolv.conf.bak
 echo "$NAMESERVER" > /etc/resolv.conf
 

@@ -26,7 +26,7 @@ iptables -P FORWARD ACCEPT
 iptables -Z
 
 #Reset resolver config
-cat resolvBACKUP > /etc/resolv.conf
+cp resolv.conf.bak /etc/resolv.conf
 
 #Reset network cards
 ifconfig $GLOBAL up
