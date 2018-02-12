@@ -35,6 +35,19 @@ echo "Setting NAT forwarding rules"
 iptables -t nat -A POSTROUTING -o $GLOBAL -m state --state NEW,ESTABLISHED -j SNAT --to-source $SRC_IP
 iptables -t nat -A PREROUTING -i $GLOBAL -m state --state NEW,ESTABLISHED -j DNAT --to-destination $DEST_IP
 
+#Drop all telnet
+$IPA $KRONOS $TCP --sport 22 -j DROP
+$IPA $KRONOS $TCP --dport 22 -j DROP
+
+#Block outgoing tcp traffic to listed ports
+$IPA $KRONOS $TCP --dport 32768:32775 -j DROP
+$IPA $KRONOS $TCP --dport 137:139 -j DROP
+$IPA $KRONOS $TCP --dport 111 -j DROP
+$IPA $KRONOS $TCP --dport 515 -j DROP
+
+#Drop SYN-FIN packets
+$IPA $KRONOS $TCP --tcp-flags SYN,FIN -j DROP
+
 #load the configs into arrays
 declare -a ACC_TCP_ARR
 declare -a ACC_UDP_ARR
