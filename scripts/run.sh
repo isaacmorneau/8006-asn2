@@ -6,6 +6,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 IPA='iptables -A'
 TCP='-m tcp -p tcp'
+TCPM='-t mangle -p tcp'
 UDP='-m udp -p udp'
 ICMP='-m icmp -p icmp'
 KRONOS='XxKr0n05xXx420blazeit'
@@ -55,9 +56,12 @@ echo "Allowing fragments"
 $IPA $KRONOS -f -j ACCEPT
 
 echo "Set TOS for ftp and ssh"
-$IPA $KRONOS $TCP --sport 22 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCP --sport 21 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCP --sport 20 -j TOS --set-tos Maximize-Throughput
+$IPA PREROUTING $TCPM --sport 22 -j TOS --set-tos Minimize-Delay
+$IPA PREROUTING $TCPM --sport 21 -j TOS --set-tos Minimize-Delay
+$IPA PREROUTING $TCPM --sport 20 -j TOS --set-tos Maximize-Throughput
+$IPA PREROUTING $TCPM --dport 22 -j TOS --set-tos Minimize-Delay
+$IPA PREROUTING $TCPM --dport 21 -j TOS --set-tos Minimize-Delay
+$IPA PREROUTING $TCPM --dport 20 -j TOS --set-tos Maximize-Throughput
 
 echo "Loading the configs"
 declare -a ACC_TCP_ARR
