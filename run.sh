@@ -46,7 +46,10 @@ $IPA $KRONOS $TCP --dport 111 -j DROP
 $IPA $KRONOS $TCP --dport 515 -j DROP
 
 #Drop SYN-FIN packets
-$IPA $KRONOS $TCP --tcp-flags SYN,FIN -j DROP
+$IPA $KRONOS $TCP --tcp-flags SYN,FIN SYN,FIN -j DROP
+
+#Drop incoming packets coming from outside with source of the inside
+$IPA $KRONOS -s 192.168.1.0/24 -j DROP
 
 #load the configs into arrays
 declare -a ACC_TCP_ARR
