@@ -19,15 +19,22 @@ else
     echo "Test FAILED"
 fi
 
-echo "Blocked UDP test"
-if [ "`hping3 -p 50000 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "ICMP" ]; then
-    echo "Test FAILED"
-else
+echo "Allowed TCP test"
+if [ "`hping3 -p 22 -S -c 3 $IP 2>&1 > /dev/null | grep -o -i 0%`" == "0%" ]; then
     echo "Test passed"
+else
+    echo "Test FAILED"
 fi
 
 echo "Blocked UDP test"
-if [ "`hping3 -p 22 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "ICMP" ]; then
+if [ "`hping3 -p 50000 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "0" ]; then
+    echo "Test passed"
+else
+    echo "Test FAILED"
+fi
+
+echo "Allowed UDP test"
+if [ "`hping3 -p 22 -2 -c 3 $IP 2>&1 > /dev/null | grep -o -i ICMP | wc -l`" == "3" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
@@ -41,21 +48,21 @@ else
 fi
 
 echo "Blocked Telnet test"
-if [ "`hping3 -p 23 -c 3 $IP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -p 23 -S -c 3 $IP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
 fi
 
 echo "Blocked Internal Destination test"
-if [ "`hping3 -p 22 -c 3 $HIP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -p 22 -S -c 3 $HIP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
 fi
 
 echo "Blocked Internal Source test"
-if [ "`hping3 -a 192.168.0.6 -p 22 -c 3 $IP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
+if [ "`hping3 -a 192.168.0.6 -S -p 22 -c 3 $IP 2>&1 > /dev/null | grep -o -i 100%`" == "100%" ]; then
     echo "Test passed"
 else
     echo "Test FAILED"
