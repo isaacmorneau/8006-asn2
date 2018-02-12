@@ -56,12 +56,12 @@ echo "Allowing fragments"
 $IPA $KRONOS -f -j ACCEPT
 
 echo "Set TOS for ftp and ssh"
-$IPA $KRONOS $TCPM --sport 22 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCPM --sport 21 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCPM --sport 20 -j TOS --set-tos Maximize-Throughput
-$IPA $KRONOS $TCPM --dport 22 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCPM --dport 21 -j TOS --set-tos Minimize-Delay
-$IPA $KRONOS $TCPM --dport 20 -j TOS --set-tos Maximize-Throughput
+$IPA -A PREROUTING $TCPM --sport 22 -j TOS --set-tos Minimize-Delay
+$IPA -A PREROUTING $TCPM --sport 21 -j TOS --set-tos Minimize-Delay
+$IPA -A PREROUTING $TCPM --sport 20 -j TOS --set-tos Maximize-Throughput
+$IPA -A PREROUTING $TCPM --dport 22 -j TOS --set-tos Minimize-Delay
+$IPA -A PREROUTING $TCPM --dport 21 -j TOS --set-tos Minimize-Delay
+$IPA -A PREROUTING $TCPM --dport 20 -j TOS --set-tos Maximize-Throughput
 
 echo "Loading the configs"
 declare -a ACC_TCP_ARR
