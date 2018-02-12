@@ -13,3 +13,6 @@ echo "Enabling interface $INT"
 ifconfig $INT up
 echo "Setting IP $IP/$MASK"
 ifconfig $INT $IP netmask $MASK
+echo "1" >/proc/sys/net/ipv4/ip_forward
+route add -net 192.168.0.0 netmask $MASK gw 192.168.0.100
+route add -net $IP/24 gw $IP
