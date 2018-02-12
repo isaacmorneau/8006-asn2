@@ -50,7 +50,7 @@ echo "Drop SYN-FIN packets"
 $IPA $KRONOS $TCP --tcp-flags SYN,FIN SYN,FIN -j DROP
 
 echo "Drop incoming packets coming from outside with source of the inside"
-$IPA $KRONOS -s 192.168.1.0/24 -j DROP
+$IPA $KRONOS -i $GLOBAL -s 192.168.1.0/24 -j DROP
 
 echo "Allowing fragments"
 $IPA $KRONOS -f -j ACCEPT
@@ -85,5 +85,5 @@ done
 
 for p in ${ACC_ICMP_ARR[@]}; do
     echo "Setting ACCEPT for ICMP type $p"
-    $IPA $KRONOS     $ICMP --icmp-type $p -m state --state NEW,ESTABLISHED -j ACCEPT
+    $IPA $KRONOS     $ICMP --icmp-type $p -j ACCEPT
 done
