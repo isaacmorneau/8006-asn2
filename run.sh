@@ -36,8 +36,8 @@ iptables -t nat -A POSTROUTING -o $GLOBAL -m state --state NEW,ESTABLISHED -j SN
 iptables -t nat -A PREROUTING -i $GLOBAL -m state --state NEW,ESTABLISHED -j DNAT --to-destination $DEST_IP
 
 #Drop all telnet
-$IPA $KRONOS $TCP --sport 22 -j DROP
-$IPA $KRONOS $TCP --dport 22 -j DROP
+$IPA $KRONOS $TCP --sport 23 -j DROP
+$IPA $KRONOS $TCP --dport 23 -j DROP
 
 #Block outgoing tcp traffic to listed ports
 $IPA $KRONOS $TCP --dport 32768:32775 -j DROP
@@ -53,6 +53,11 @@ $IPA $KRONOS -s 192.168.1.0/24 -j DROP
 
 #Allow fragments
 $IPA $KRONOS -f -j ACCEPT
+
+#Set TOS for ftp and ssh
+$IPA $KRONOS $TCP --sport 22 -j TOS --set-tos Minimize-Delay
+$IPA $KRONOS $TCP --sport 21 -j TOS --set-tos Minimize-Delay
+$IPA $KRONOS $TCP --sport 20 -j TOS --set-tos Maximize-Throughput
 
 #load the configs into arrays
 declare -a ACC_TCP_ARR
