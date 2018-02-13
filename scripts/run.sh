@@ -85,5 +85,5 @@ done
 
 for p in ${ACC_ICMP_ARR[@]}; do
     echo "Setting ACCEPT for ICMP type $p"
-    $IPA $KRONOS     $ICMP --icmp-type $p -m state --state NEW,ESTABLISHED -j ACCEPT
+    $IPA $KRONOS     $ICMP --icmp-type $p -j ACCEPT
 done
